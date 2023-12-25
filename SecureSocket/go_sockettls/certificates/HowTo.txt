@@ -1,0 +1,29 @@
+1. server certificate 
+    - make key
+      >> openssl genrsa -aes256 -out server-pw.key 2048
+    - remove password
+      >>  openssl rsa -in server-pw.key -out server.key
+    - make CSR
+      >> openssl req -new -key server.key -out server.csr
+    - config DNS
+      >> cat server.ext
+        subjectAltName = @alt_names
+
+        [alt_names]
+        DNS.1 = localhost
+        DNS.2 = 192.168.0.*
+        DNS.3 = 172.30.1.*
+    - make certificate
+      >> openssl x509 -req -days 365 -in server.csr -extfile server.ext -signkey server.key -out server.crt
+    - check certificate
+      >> openssl x509 -text -in server.crt
+
+2. client certificate
+    - make key 
+      >> openssl genrsa  -out client.key 2048
+    - make CSR
+      >> openssl req -new -key client.key -out client.csr
+    - make certificate
+      >> openssl x509 -req -days 365 -in client.csr -signkey client.key -out client.crt
+    - check certificate
+      >> openssl x509 -text -in client.crt  
