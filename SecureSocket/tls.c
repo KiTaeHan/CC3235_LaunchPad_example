@@ -32,19 +32,12 @@
 #define HOST_TASK_PRIORITY      9
 #define SL_STOP_TIMEOUT         200     // msec
 
-//#define AP_SSID                 "<< SSID >>"
-//#define AP_PASSWORD             "<< PASSWORD >>"
-#define AP_SSID                 "CodeZoo_2.4GHz"
-#define AP_PASSWORD             "gamepark"
-//#define AP_SSID                 "KT_GiGA_506A"
-//#define AP_PASSWORD             "xcb3eh4057"
+#define AP_SSID                 "<< SSID >>"
+#define AP_PASSWORD             "<< PASSWORD >>"
 #define AP_SECRUITY_TYPE        SL_WLAN_SEC_TYPE_WPA_WPA2
 
-//#define SERVER_PORT_NUM         8080
-//#define SERVER_IP_NUM           SL_IPV4_VAL(xxx,xxx,xxx,xxx)
-#define SERVER_PORT_NUM         4040
-//#define SERVER_IP_NUM           SL_IPV4_VAL(172,30,1,64)
-#define SERVER_IP_NUM           SL_IPV4_VAL(192,168.,0,122)
+#define SERVER_PORT_NUM         << Port Num >>
+#define SERVER_IP_NUM           SL_IPV4_VAL(xxx,xxx,xxx,xxx)
 #define MSG_BUFFER_SIZE         32
 
 #define FILE_COUNT 5
@@ -245,9 +238,7 @@ void TCP_Test()
     uint32_t dummyVal;
 #endif
 
-//    sock = sl_Socket(SL_AF_INET, SL_SOCK_STREAM, SL_IPPROTO_TCP); // just raw socket
     sock = sl_Socket(SL_AF_INET, SL_SOCK_STREAM, SL_SEC_SOCKET); // Secured Socket
-//    sock = sl_Socket(SL_AF_INET, SL_SOCK_STREAM, 0);
     if(sock < 0)
     {
         printf("fail socket creation\r\n");
@@ -292,15 +283,13 @@ void TCP_Test()
 #endif
 
 #ifdef SELF_SIGNED_SERVER_CERTIFICATE
-    // Connecting to a Server With a self-signed Certificate, 없으면 NWP내부의 카탈로그를 사용해서 검증
+    // Connecting to a Server With a self-signed Certificate
     sl_SetSockOpt(sock, SL_SOL_SOCKET,
                   SL_SO_SECURE_DISABLE_CERTIFICATE_STORE,
                   &dummyVal, sizeof(dummyVal));
 #endif
 
 #endif
-
-//    get_filelist();
 
     addr.sin_family = SL_AF_INET;
     addr.sin_port = sl_Htons(SERVER_PORT_NUM);
@@ -360,11 +349,11 @@ void get_deviceDate()
            dateTime.tm_hour,dateTime.tm_min,dateTime.tm_sec);
 }
 
-void set_deviceDate()   // 인증서의 date에 맞는 date로 설정이 필요
+void set_deviceDate()  
 {
     SlDateTime_t dateTime;
 
-    memset(&dateTime, 0, sizeof(SlDateTime_t));     // 없으면 error 씨발
+    memset(&dateTime, 0, sizeof(SlDateTime_t));
     dateTime.tm_day = 20;
     dateTime.tm_mon = 10;
     dateTime.tm_year = 2023;
@@ -402,6 +391,7 @@ void mainThread(void *arg0)
 
     set_deviceDate();
     get_deviceDate();
+    get_filelist();
     TCP_Test();
 
     while (1)
