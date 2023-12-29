@@ -22,10 +22,8 @@
 #define HOST_TASK_PRIORITY      9
 #define SL_STOP_TIMEOUT         200     // msec
 
-//#define AP_SSID                 "<< SSID >>"
-//#define AP_PASSWORD             "<< PASSWORD >>"
-#define AP_SSID                 "CodeZoo_2.4GHz"
-#define AP_PASSWORD             "gamepark"
+#define AP_SSID                 "<< SSID >>"
+#define AP_PASSWORD             "<< PASSWORD >>"
 #define AP_SECRUITY_TYPE        SL_WLAN_SEC_TYPE_WPA_WPA2
 
 #define HTTPCLIENT_STACK_SIZE   (1048*2)

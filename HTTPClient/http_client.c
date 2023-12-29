@@ -4,8 +4,7 @@
 #include "ti/net/http/httpclient.h"
 #include "semaphore.h"
 
-//#define HOSTNAME              << IP or URL >>
-#define HOSTNAME              "http://192.168.0.122:8080"
+#define HOSTNAME              << IP or URL >>
 #define REQUEST_URI           "/"
 #define USER_AGENT            "HTTPClient (ARM; TI-RTOS)"
 #define HTTP_MIN_RECV         (256)
